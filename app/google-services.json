@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "486535468676",
+    "project_id": "assistant-vocal-32bd1",
+    "storage_bucket": "assistant-vocal-32bd1.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:486535468676:android:ea9064314bb6127127d4d1",
+        "android_client_info": {
+          "package_name": "com.example.assistantvocal"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDXMKDq5M2gzs4__rVDXtDoySQz6G4PG3I"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
