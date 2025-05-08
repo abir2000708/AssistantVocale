@@ -1,5 +1,6 @@
 package com.example.assistantvocal;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
@@ -12,6 +13,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -26,6 +30,8 @@ public class SignInActivity extends AppCompatActivity {
             + "[^-][A-Za-z0-9-]+(\\.[A-Za-z0-9-]+)*(\\.[A-Za-z]{2,})$";
 
     private static final String REGEX_PASSWORD = "^.*(?=.{8,})(?=..*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=]).*$";
+    private FirebaseAuth firebaseAuth;
+    private ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +50,10 @@ public class SignInActivity extends AppCompatActivity {
         passwordSignIn = findViewById(R.id.password_sign_in);
 
 
+        firebaseAuth = FirebaseAuth.getInstance();
+        progressDialog = new ProgressDialog(this);
+
+
         goToForgotPassword.setOnClickListener(v -> {
             startActivity(new Intent(this, ForgotPassword.class));
         });
@@ -55,16 +65,37 @@ public class SignInActivity extends AppCompatActivity {
 
         btnSignIn.setOnClickListener(v -> {
             if (validate()) {
-                Toast.makeText(this, "Hello welcome back", Toast.LENGTH_SHORT).show();
+                progressDialog.setMessage("Please wait...");
+                progressDialog.show();firebaseAuth.signInWithEmailAndPassword(inputEmailSignIn, inputPasswordSignIn).addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        checkEmailVerification();
 
-
+                    } else {
+                        Toast.makeText(this, "Sign in failed ! ", Toast.LENGTH_SHORT).show();
+                        progressDialog.dismiss();
+                    }
+                });
             }
         });
-
     }
 
+private void checkEmailVerification() {
+    FirebaseUser loggedUser = firebaseAuth.getCurrentUser();
+    if (loggedUser != null) {
+        if (loggedUser.isEmailVerified()) {
+            startActivity(new Intent(this,HomeActivity.class));
+            finish();
+        } else {
+            Toast.makeText(this, "Please verify your email ", Toast.LENGTH_SHORT).show();
+            loggedUser.sendEmailVerification();
+            firebaseAuth.signOut();
+            progressDialog.dismiss();
+        }
+    }
+}
 
-    private boolean validate() {
+
+private boolean validate() {
         boolean result = false;
         inputEmailSignIn = emailSignIn.getText().toString().trim();
         inputPasswordSignIn = passwordSignIn.getText().toString().trim();

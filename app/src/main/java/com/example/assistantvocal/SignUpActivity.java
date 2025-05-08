@@ -14,6 +14,7 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.example.assistantvocal.models.User;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
@@ -89,6 +90,7 @@ public class SignUpActivity extends AppCompatActivity {
         if (loggedUser != null) {
             loggedUser.sendEmailVerification().addOnCompleteListener(task -> {
                 if (task.isSuccessful()) {
+                    sendUserData();
                     Toast.makeText(this, "Registration done ! please check your email address !", Toast.LENGTH_LONG).show();
                     progressDialog.dismiss();
                     startActivity(new Intent(this, SignInActivity.class));
@@ -100,6 +102,13 @@ public class SignUpActivity extends AppCompatActivity {
                 }
             });
         }
+    }
+
+    private void sendUserData() {
+        FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+        DatabaseReference databaseReference = firebaseDatabase.getReference();
+        User newUser = new User(inputFullname, inputEmail, inputPhone, inputCin, inputAddress);
+        databaseReference.child("Users").child("" + firebaseAuth.getUid()).setValue(newUser);
     }
 
 
