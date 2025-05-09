@@ -3,12 +3,24 @@
 
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
+    android:id="@+id/drawer_layout_profile"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/bgg_color"
     android:orientation="vertical"
     tools:context=".ProfileActivity">
+
+    <com.google.android.material.navigation.NavigationView
+        android:id="@+id/navigation_view_profile"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:theme="@style/navigationTheme"
+        app:headerLayout="@layout/header_menu"
+        app:itemIconSize="25sp"
+        app:menu="@menu/main_menu"
+        app:itemBackground="@drawable/nav_item_background"/>
+
 
 
 
@@ -17,6 +29,12 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="30sp"
         android:orientation="vertical">
+        <ImageView
+            android:id="@+id/menu_profile"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_margin="10sp"
+            android:src="@drawable/icc_menu" />
 
 
 
