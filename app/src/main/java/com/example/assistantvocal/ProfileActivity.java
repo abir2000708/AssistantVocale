@@ -102,13 +102,13 @@ public class ProfileActivity extends AppCompatActivity {
             String editedCin = cin.getText().toString();
             String editedAddress = address.getText().toString();
 
-
             databaseReference.child("fullName").setValue(editedFullName);
             databaseReference.child("phoneNumber").setValue(editedPhone);
             databaseReference.child("cin").setValue(editedCin);
             databaseReference.child("address").setValue(editedAddress);
             Toast.makeText(this, "Your data has been changed successfully  ", Toast.LENGTH_SHORT).show();
             startActivity(new Intent(this, ProfileActivity.class));
+
 
         });
 

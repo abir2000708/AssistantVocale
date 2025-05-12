@@ -30,6 +30,45 @@
             android:layout_height="40dp"
             android:layout_margin="10sp"
             android:src="@drawable/icc_menu" />
+        <EditText
+            android:id="@+id/device_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="20sp"
+            android:drawableEnd="@drawable/ic_device_name"
+            android:drawableTint="@color/blu"
+            android:hint="Device name"
+            android:padding="15sp"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/device_value"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="20sp"
+            android:drawableEnd="@drawable/ic_value"
+            android:hint="Device value"
+            android:inputType="number"
+            android:padding="15sp"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+        <Button
+            android:id="@+id/btn_add_device"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:backgroundTint="@color/blu"
+            android:text="ADD DEVICE" />
+
+        <ListView
+            android:id="@+id/list_devices"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="15sp"/>
+
+
+
 
 
 
